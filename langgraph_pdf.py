@@ -36,7 +36,7 @@ clear_temp_folder()
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://f42q4ghh-5173.inc1.devtunnels.ms"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -110,7 +110,7 @@ def build_vectorstore(path: str, collection_name: str):
 def build_agent(vs):
     def retrieval(state: AgentState) -> AgentState:
         state["retrievers"] = vs.as_retriever(
-            search_type="similarity", search_kwargs={"k": 2}
+            search_type="similarity", search_kwargs={"k": 3}
         )
         return state
 

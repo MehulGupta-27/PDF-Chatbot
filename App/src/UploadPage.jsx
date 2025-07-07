@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./chatbot.css"; // Make sure your styles are in this file
+import "./chatbot.css";
 
 export default function UploadPage() {
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,7 @@ export default function UploadPage() {
     const file = e.target.files[0];
     if (!file) return;
 
-    setLoading(true); // show overlay
+    setLoading(true);
 
     const fd = new FormData();
     fd.append("pdf", file);

@@ -29,7 +29,6 @@ body {
   text-align: center;
 }
 
-/* Chat container centered */
 .chat-container {
   width: 100%;
   max-width: 900px;
@@ -93,7 +92,6 @@ body {
   background-color: #a78bfa;
 }
 
-/* Messages */
 .message {
   margin: 8px 0;
   padding: 10px 15px;
@@ -153,7 +151,6 @@ strong {
   font-weight: bold;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
   .chat-container {
     height: 85vh;
@@ -197,7 +194,6 @@ strong {
   }
 }
 
-/* PDF Upload Section */
 .upload-section {
   margin: 1rem 0;
   background-color: #2a1b3d;
@@ -234,7 +230,6 @@ strong {
   color: #ffffff;
 }
 
-/* ========== Sidebar ========== */
 .sidebar {
   position: fixed;
   left: 0;
@@ -295,7 +290,6 @@ strong {
   background-color: #a78bfa;
 }
 
-/* ========== Layout ========== */
 .app-row {
   display: flex;
   flex-direction: row;
@@ -318,18 +312,15 @@ strong {
   max-width: 900px;
 }
 
-/* ---------- Flex layout ---------- */
 .app-row {
   display: flex;
   width: 100%;
   height: 100vh;
 }
 
-/* sidebar is already styled above */
 
-/* main chat area next to sidebar */
 .main-panel {
-  margin-left: 250px;                 /* same width as .sidebar */
+  margin-left: 250px;
   width: calc(100% - 250px);
   display: flex;
   justify-content: center;
@@ -338,15 +329,13 @@ strong {
   box-sizing: border-box;
 }
 
-/* chat wrapper width (🔄 500 → 600 px) */
 .chat-wrapper {
   width: 100%;
-  max-width: 600px;                   /* <- wider chat panel */
+  max-width: 600px;
 }
 
-/* chat container width (🔄 500 → 600 px) */
 .chat-container {
-  max-width: 600px;                   /* keep in sync */
+  max-width: 600px;
 }
 
 .upload-overlay {

@@ -104,7 +104,6 @@ export default function Chatbot() {
 
   return (
     <div className="app-row">
-      {/* Sidebar */}
       <div className="sidebar">
         <div className="sidebar-header">
           <span>PDFs ({files.length}/5)</span>
@@ -133,7 +132,6 @@ export default function Chatbot() {
         ))}
       </div>
 
-      {/* Main Chat Panel */}
       <div className="main-panel">
         <div className="chat-wrapper">
           <h2 className="chat-heading">PDF Chatbot</h2>
