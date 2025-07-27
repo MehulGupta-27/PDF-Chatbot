@@ -1,5 +1,5 @@
 from langgraph.graph import StateGraph, START, END
-from typing import TypedDict, List, Dict, Set
+from typing import TypedDict, Dict, Set
 from langchain_community.vectorstores import Qdrant
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import AzureOpenAIEmbeddings, AzureChatOpenAI
@@ -51,7 +51,7 @@ embeddings = AzureOpenAIEmbeddings(
     azure_endpoint=os.getenv("EMBEDDINGS_AZURE_ENDPOINT"),
     api_key=os.getenv("EMBEDDINGS_API_KEY"),
     api_version=os.getenv("API_VERSION"),
-    dimensions=100,
+    dimensions=512,
 )
 llm = AzureChatOpenAI(
     azure_deployment="gpt-4o",
@@ -63,13 +63,12 @@ llm = AzureChatOpenAI(
 
 template = """
 You are a chatbot that answers only using the content of the uploaded PDF.
+Summarize everthing in detail present inside the PDF. Use Headings points advantage comparision from the pdf.
 If the answer is not present in the PDF, respond with: "Sorry, this information is not available in the uploaded document."
 Do NOT include both a sorry message and an answer together.
-You can generate your own answers with different language from pdf. The meaning of the pdf content and your answer should be same
-Only if you are certain the answer is in the context, then answer based on it.
+But if someone greets or talks then you can behave normally but no other questions.
 
 If the answer of the question is present and the user didn't used "What is" keyword then also give the output.
-But if someone greets or talks then you can behave normally but no other questions
 
 example: ai
 example: what is ai
@@ -184,17 +183,15 @@ def ask(payload: dict):
         if not agent:
             continue
         result_text = agent.invoke({"question": question})["answer"]["result"].strip()
+
         if fallback in result_text:
             lines = [l.strip() for l in result_text.split("\n") if l.strip()]
             if len(lines) == 1:
                 answers.append(fallback)
             else:
                 filtered = "\n".join(l for l in lines if not l.startswith("Sorry")).strip()
-                if filtered:
-                    answers.append(filtered)
-                else:
-                    answers.append(fallback)
+                answers.append(filtered if filtered else fallback)
         else:
             answers.append(result_text)
 
-    return {"answer": "\n\n".join(a for a in answers if a) or fallback}
+    return {"answer": "\n\n---\n\n".join(answers) or fallback}

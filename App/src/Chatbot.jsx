@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { marked } from "marked"; // ✅ Import marked
 import "./chatbot.css";
 
 export default function Chatbot() {
@@ -141,9 +142,12 @@ export default function Chatbot() {
               {messages.map((m, i) => (
                 <div key={i} className={`message ${m.role}`}>
                   {m.role === "bot" ? (
-                    <div className="formatted-response">{m.text}</div>
+                    <div
+                      className="formatted-response"
+                      dangerouslySetInnerHTML={{ __html: marked.parse(m.text) }}
+                    />
                   ) : (
-                    m.text
+                    <div>{m.text}</div>
                   )}
                 </div>
               ))}
